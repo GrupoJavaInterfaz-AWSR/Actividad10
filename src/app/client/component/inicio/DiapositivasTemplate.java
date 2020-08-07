@@ -23,7 +23,7 @@ import javax.swing.SwingConstants;
  * @author ssrs_
  */
 public class DiapositivasTemplate extends JPanel {
-
+    
     private DiapositivasComponent diapositivasComponent;
     private ObjGraficosService objGraficosService;
     private RecursosService recursosService;
@@ -31,38 +31,39 @@ public class DiapositivasTemplate extends JPanel {
     private ImageIcon iDimAux;
     private Color Gris, GrisLetras;
     private Cursor mano;
-
+    
     public DiapositivasTemplate(DiapositivasComponent diapositivasComponent, String nombre, ImageIcon Diapositiva) {
-
+        
         this.diapositivasComponent = diapositivasComponent;
         this.diapositivasComponent.getClass();
-
+        
         IDiapositiva = new JLabel();
         TDiapositiva = new JLabel(nombre);
-
+        
         this.add(IDiapositiva);
         this.add(TDiapositiva);
-
+        
         Gris = new Color(225, 225, 225);
         GrisLetras = new Color(160, 160, 160);
         mano = new Cursor(Cursor.HAND_CURSOR);
         iDimAux = new ImageIcon(Diapositiva.getImage().getScaledInstance(210, 110, Image.SCALE_DEFAULT));
-
+        
         IDiapositiva.setIcon(iDimAux);
         IDiapositiva.setLocation(0, 0);
         IDiapositiva.setLayout(null);
         IDiapositiva.setSize(210, 110);
-
+        
         TDiapositiva.setLayout(null);
         TDiapositiva.setForeground(GrisLetras);
         TDiapositiva.setBounds(5, 120, 222, 10);
-
+        
         this.setSize(222, 150);
         this.setBackground(Gris);
         this.setCursor(mano);
+        this.addMouseListener(diapositivasComponent);
         this.setBorder(null);
         this.setLayout(null);
         this.setVisible(true);
     }
-
+    
 }

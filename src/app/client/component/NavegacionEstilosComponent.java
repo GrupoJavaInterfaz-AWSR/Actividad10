@@ -57,7 +57,6 @@ public class NavegacionEstilosComponent implements ActionListener, MouseListener
         String Componente = String.valueOf(e.getComponent());
         if (Componente.equals("javax.swing.JTextField[,10,45,680x25,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=,flags=296,maximumSize=,minimumSize=,preferredSize=,caretColor=java.awt.Color[r=0,g=0,b=0],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=0,left=0,bottom=0,right=0],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],columns=0,columnWidth=0,command=,horizontalAlignment=CENTER]")) {
             vistaPrincipalComponent.mostrarComponente("borrar");
-            vistaPrincipalComponent.mostrarComponente("borrar");
         }
     }
 
@@ -84,5 +83,15 @@ public class NavegacionEstilosComponent implements ActionListener, MouseListener
 
     public Usuario getUsuario() {
         return this.usuarioLogeado;
+    }
+
+    public void actualizarValores() {
+        this.usuarioLogeado = sUsuario.getUsuarioLogeado();
+        this.navegacionEstilosTemplate.getPDerecha().removeAll();
+        this.navegacionEstilosTemplate.getPIzquierda().removeAll();
+        this.navegacionEstilosTemplate.crearJTexts();
+        this.navegacionEstilosTemplate.crearJButtons();
+        this.navegacionEstilosTemplate.crearJLabels();
+        this.navegacionEstilosTemplate.repaint();
     }
 }

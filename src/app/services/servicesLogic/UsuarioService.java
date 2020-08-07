@@ -22,9 +22,9 @@ public class UsuarioService {
         cUsuario = new ControlUsuarios();
     }
 
-    public boolean verificarDatosUsuario(String nombreUsuario, String claveUsuario) {
-        if (cUsuario.verificarUsuario(nombreUsuario, claveUsuario)) {
-            this.usuarioLogeado = nombreUsuario;
+    public boolean verificarDatosUsuario(String correoUsuario, String claveUsuario) {
+        if (cUsuario.verificarUsuario(correoUsuario, claveUsuario)) {
+            this.usuarioLogeado = correoUsuario;
             return true;
         }
         return false;

@@ -124,8 +124,10 @@ public class VistaPrincipalComponent {
                 }
                 break;
             case "Cambiar de cuenta":
+                loginComponent.restaurarValores();
                 loginComponent.getLoginTemplate().setVisible(true);
                 this.vistaPrincipalTemplate.setVisible(false);
+
                 break;
             case "Minimizar":
                 minimizar();
@@ -138,5 +140,10 @@ public class VistaPrincipalComponent {
                 break;
         }
         this.vistaPrincipalTemplate.repaint();
+    }
+
+    public void restaurarValores() {
+        this.vistaPrincipalTemplate.getPPrincipal().add(presentacionesComponent.getPresentacionTemplate());
+        this.navegacionEstilosComponent.actualizarValores();
     }
 }

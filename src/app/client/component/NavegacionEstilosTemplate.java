@@ -29,10 +29,10 @@ public class NavegacionEstilosTemplate extends JPanel {
     private ObjGraficosService sObjGraficos;
     private RecursosService sRecursos;
     private JPanel pDerecha, pIzquierda;
-    private JLabel ILogoApp, IBusquedasApp, lIconoUsuario, lNombreUsusario;
-    private JButton bMinimizar, bCerrar;
+    private JLabel ILogoApp, IBusquedasApp, lIconoUsuario, lNombreUsusario, lCorreoUsuario;
+    private JButton bMinimizar, bCerrar, bBuscar;
     private JTextField tBuscar;
-    private ImageIcon iLogoApp, iDimAux, iFondo, iLogo, iUsuario, iClave, iOnedrive;
+    private ImageIcon iLogoApp, iDimAux, iFondo, iLogo, iUsuario, iClave, iOnedrive, iLupa;
     private Font fontTituloBarra;
     private JButton bPresentaciones, bTemas, bEducacion, bGraficos, bDiagramas, bEmpresa, bInfografia, bCCuenta;
 
@@ -60,6 +60,8 @@ public class NavegacionEstilosTemplate extends JPanel {
         iClave = new ImageIcon("src/resources/Clave.jpg");
         iOnedrive = new ImageIcon("src/resources/OneDrive.png");
         iLogoApp = new ImageIcon("src/resources/Logo.jpg");
+        iLupa = new ImageIcon("src/resources/Lupa.jpg");
+
         fontTituloBarra = new Font("Britanic Bold", Font.PLAIN, 15);
     }
 
@@ -79,7 +81,7 @@ public class NavegacionEstilosTemplate extends JPanel {
     public void crearJTexts() {
         this.tBuscar = sObjGraficos.construirJTextField(
                 "Buscar plantillas y temas en linea", 10, 45,
-                680, 25, Color.WHITE, Color.BLACK, Color.BLACK, null,
+                680, 25, Color.WHITE, sRecursos.getColorGrisLetras(), Color.BLACK, null,
                 null, "c");
         this.tBuscar.addMouseListener(navegacionEstilosComponent);
         this.pIzquierda.add(tBuscar);
@@ -89,10 +91,10 @@ public class NavegacionEstilosTemplate extends JPanel {
         this.tBuscar.setText(null);
     }
 
-    private void crearJLabels() {
+    public void crearJLabels() {
         // LABEL ICONO USUARIO--------------------------------------------------------------------
         iDimAux = new ImageIcon(
-                iUsuario.getImage().getScaledInstance(40, 40, Image.SCALE_AREA_AVERAGING)
+                navegacionEstilosComponent.getUsuario().getImagenUsuario().getImage().getScaledInstance(40, 40, Image.SCALE_AREA_AVERAGING)
         );
         lIconoUsuario = sObjGraficos.construirJLabel(
                 null, 140, 50, 50, 50, iDimAux, sRecursos.getColorGrisLetras(), null, null, "c"
@@ -100,13 +102,18 @@ public class NavegacionEstilosTemplate extends JPanel {
         this.pDerecha.add(lIconoUsuario);
 
         //System.out.println(navegacionEstilosComponent.getUsuario());
-
         // LABEL NOMBER USUARIO--------------------------------------------------------------------
         this.lNombreUsusario = sObjGraficos.construirJLabel(navegacionEstilosComponent.getUsuario().getNombreUsuario(),
-                10, 50, 120, 40, null, sRecursos.getColorGrisLetras(), null, sRecursos.getFontDiagramas(), "c"
+                0, 40, 130, 20, null, sRecursos.getColorGrisLetras(), null, sRecursos.getFontNUsuario(), "c"
         );
 
         this.pDerecha.add(lNombreUsusario);
+
+        this.lCorreoUsuario = sObjGraficos.construirJLabel(navegacionEstilosComponent.getUsuario().getCorreoUsuario(),
+                0, 60, 120, 20, null, sRecursos.getColorGrisLetras(), null, sRecursos.getFontDiagramas(), "c"
+        );
+
+        this.pDerecha.add(lCorreoUsuario);
 
         //LABEL BUSQUEDAS-----------------------------------------------------------------------------
         IBusquedasApp = sObjGraficos.construirJLabel(
@@ -137,7 +144,7 @@ public class NavegacionEstilosTemplate extends JPanel {
 
         // BOTÓN EDUCACION--------------------------------------------------------------------
         this.bEducacion = sObjGraficos.construirJButton(
-                "Educacion", 350, 70, 100, 40, sRecursos.getCMano(),
+                "Educacion", 340, 70, 100, 40, sRecursos.getCMano(),
                 null, sRecursos.getFontBotones(), null, sRecursos.getColorGrisLetras(), null, "l", false
         );
         this.bEducacion.addActionListener(navegacionEstilosComponent);
@@ -145,15 +152,15 @@ public class NavegacionEstilosTemplate extends JPanel {
 
         // BOTÓN GRAFICOS--------------------------------------------------------------------
         this.bGraficos = sObjGraficos.construirJButton(
-                "Graficos", 420, 70, 100, 40, sRecursos.getCMano(),
+                "Graficos", 410, 70, 100, 40, sRecursos.getCMano(),
                 null, sRecursos.getFontBotones(), null, sRecursos.getColorGrisLetras(), null, "l", false
         );
         this.bGraficos.addActionListener(navegacionEstilosComponent);
         this.pIzquierda.add(bGraficos);
 
-        // BOTÓN Diagramas--------------------------------------------------------------------
+        // BOTÓN DIAGRAMAS--------------------------------------------------------------------
         this.bDiagramas = sObjGraficos.construirJButton(
-                "Diagramas", 510, 70, 100, 40, sRecursos.getCMano(),
+                "Diagramas", 480, 70, 100, 40, sRecursos.getCMano(),
                 null, sRecursos.getFontBotones(), null, sRecursos.getColorGrisLetras(), null, "l", false
         );
         this.bDiagramas.addActionListener(navegacionEstilosComponent);
@@ -161,7 +168,7 @@ public class NavegacionEstilosTemplate extends JPanel {
 
         // BOTÓN EMPRESA--------------------------------------------------------------------
         this.bEmpresa = sObjGraficos.construirJButton(
-                "Empresa", 600, 70, 100, 40, sRecursos.getCMano(),
+                "Empresa", 560, 70, 100, 40, sRecursos.getCMano(),
                 null, sRecursos.getFontBotones(), null, sRecursos.getColorGrisLetras(), null, "l", false
         );
         this.bEmpresa.addActionListener(navegacionEstilosComponent);
@@ -169,15 +176,26 @@ public class NavegacionEstilosTemplate extends JPanel {
 
         // BOTÓN INFOGRAFIA--------------------------------------------------------------------
         this.bInfografia = sObjGraficos.construirJButton(
-                "Infografia", 700, 70, 100, 40, sRecursos.getCMano(),
+                "Infografia", 640, 70, 100, 40, sRecursos.getCMano(),
                 null, sRecursos.getFontBotones(), null, sRecursos.getColorGrisLetras(), null, "l", false
         );
         this.bInfografia.addActionListener(navegacionEstilosComponent);
         this.pIzquierda.add(bInfografia);
 
+        // BOTÓN BUSCAR--------------------------------------------------------------------
+        iDimAux = new ImageIcon(
+                iLupa.getImage().getScaledInstance(25, 25, Image.SCALE_AREA_AVERAGING)
+        );
+        this.bBuscar = sObjGraficos.construirJButton(
+                "", 690, 45, 25, 25, sRecursos.getCMano(),
+                iDimAux, sRecursos.getFontBotones(), null, sRecursos.getColorGrisLetras(), null, "l", false
+        );
+        this.bBuscar.addActionListener(navegacionEstilosComponent);
+        this.pIzquierda.add(bBuscar);
+
         // BOTÓN CERRAR SESION--------------------------------------------------------------------
         this.bCCuenta = sObjGraficos.construirJButton(
-                "Cambiar de cuenta", 25, 70, 120, 40, sRecursos.getCMano(),
+                "Cambiar de cuenta", 5, 80, 120, 20, sRecursos.getCMano(),
                 null, sRecursos.getFontBotones(), null, Color.RED, null, "l", false
         );
         this.bCCuenta.addActionListener(navegacionEstilosComponent);
@@ -202,5 +220,13 @@ public class NavegacionEstilosTemplate extends JPanel {
         );
         bCerrar.addActionListener(navegacionEstilosComponent);
         this.pDerecha.add(bCerrar);
+    }
+
+    public JPanel getPDerecha() {
+        return pDerecha;
+    }
+
+    public JPanel getPIzquierda() {
+        return pIzquierda;
     }
 }

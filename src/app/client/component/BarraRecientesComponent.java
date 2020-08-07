@@ -7,6 +7,9 @@ package app.client.component;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,6 +18,7 @@ import java.awt.event.ActionListener;
 public class BarraRecientesComponent implements ActionListener {
 
     private BarraRecientesTemplate barraRecientesTemplate;
+    private String reciente;
 
     public BarraRecientesComponent() {
         barraRecientesTemplate = new BarraRecientesTemplate(this);
@@ -24,9 +28,13 @@ public class BarraRecientesComponent implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
 
     }
-    
-    public BarraRecientesTemplate getNavegacionUsuarioTemplate(){
+
+    public BarraRecientesTemplate getNavegacionUsuarioTemplate() {
         return barraRecientesTemplate;
     }
 
+
+    public JPanel getPanel() {
+        return barraRecientesTemplate.getPanel();
+    }
 }

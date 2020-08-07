@@ -40,7 +40,8 @@ public class ControlUsuarios {
                 Usuario usuario = new Usuario();
                 usuario.setNombreUsuario(atributos[0]);
                 usuario.setClaveUsuario(atributos[1]);
-                usuario.setImagenUsuario(new ImageIcon(atributos[2]));
+                usuario.setCorreoUsuario(atributos[2]);
+                usuario.setImagenUsuario(new ImageIcon(atributos[3]));
                 usuarios.add(usuario);
             }
             fr.close();
@@ -49,9 +50,9 @@ public class ControlUsuarios {
         }
     }
 
-    public boolean verificarUsuario(String nombreUsuario, String claveUsuario) {
+    public boolean verificarUsuario(String correoUsuario, String claveUsuario) {
         for (Usuario usuario : usuarios) {
-            if (usuario.getNombreUsuario().equals(nombreUsuario)) {
+            if (usuario.getCorreoUsuario().equals(correoUsuario)) {
                 if (usuario.getClaveUsuario().equals(claveUsuario)) {
                     return true;
                 }
@@ -60,13 +61,13 @@ public class ControlUsuarios {
         return false;
     }
 
-    public Usuario devolverUsuario(String nombreUsuario) {
+    public Usuario devolverUsuario(String correoUsuario) {
         for (Usuario usuario : usuarios) {
-            if (usuario.getNombreUsuario().equals(nombreUsuario)) {
+            if (usuario.getCorreoUsuario().equals(correoUsuario)) {
                 return usuario;
             }
         }
         return null;
     }
-    
+
 }

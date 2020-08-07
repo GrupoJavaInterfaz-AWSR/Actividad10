@@ -5,7 +5,6 @@ import app.services.servicesGraphics.ObjGraficosService;
 import app.services.servicesGraphics.RecursosService;
 
 import java.awt.Color;
-import static java.awt.Color.DARK_GRAY;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -23,17 +22,20 @@ public class LoginTemplate extends JFrame {
     private static final long serialVersionUID = 7215779126893195799L;
 
     //Declaracion objetos graficos
-    private JPanel pDerecha, pIzquierda;
-    private JLabel lTituloApp, lEslogan, lTituloLogin, lNotificaciones, lFondo, lUsuario, lClave, lOnedrive, lLogo;
-    private JTextField tNombreUsuario;
+    private JPanel pDerecha, pIzquierda, pSvg;
+
+    private JLabel lTituloApp, lEslogan, lTituloLogin,
+            lNotificaciones, lFondo, lUsuario, lClave, lOnedrive, lLogo, lSvg, lSvg1, lSvg2;
+    private JTextField tCorreoUsuario;
     private JPasswordField tClaveUsuario;
     private JComboBox<String> cbTipoFondo;
-    private JButton bEntrar, bCerrar, bRegistrarse, bOpcion1, bOpcion2, bOpcion3;
+    private JButton bEntrar, bCerrar, bRegistrarse, bOpcion1, bOpcion2, bOpcion3, bop1, bop2, bop3;
     private JCheckBox checkSi, checkNo;
     private ButtonGroup grupo;
 
     //Declaracion objetos Decoradores
-    private ImageIcon iFondo, iLogo, iUsuario, iClave, iOnedrive, iDimAux;
+    private ImageIcon iFondo, iLogo, iUsuario, iClave, iOnedrive,
+            iDimAux, iSvg, iSvg1, iSvg2, btn1, btn2, btn3;
 
     //Declaracion servicios
     private ObjGraficosService sObjGraficos;
@@ -57,6 +59,7 @@ public class LoginTemplate extends JFrame {
         this.crearJComboBoxes();
         this.crearJButtons();
         this.crearJCheckBoxes();
+        pIzquierda.add(pSvg);
         this.crearJLabels();
 
         setLayout(null);
@@ -72,7 +75,13 @@ public class LoginTemplate extends JFrame {
         iLogo = new ImageIcon("src/resources/Logo.jpg");
         iUsuario = new ImageIcon("src/resources/usuario.jpg");
         iClave = new ImageIcon("src/resources/Clave.jpg");
-        iOnedrive = new ImageIcon("src/resources/OneDrive.png");
+        iOnedrive = new ImageIcon("src/resources/OneDrive.jpg");
+        iSvg = new ImageIcon("src/resources/Microsoft.jpg");
+        iSvg1 = new ImageIcon("src/resources/Office.jpg");
+        iSvg2 = new ImageIcon("src/resources/PowerPoint.png");
+        btn1 = new ImageIcon("src/resources/botonuno.png");
+        btn2 = new ImageIcon("src/resources/botondos.jpg");
+        btn3 = new ImageIcon("src/resources/botontres.jpg");
     }
 
     private void crearJPanels() {
@@ -81,22 +90,29 @@ public class LoginTemplate extends JFrame {
 
         pDerecha = sObjGraficos.construirJPanel(600, 0, 400, 500, Color.WHITE, null);
         this.add(pDerecha);
+
+        pSvg = sObjGraficos.construirJPanel(
+                100, 100, 1700, 400, new Color(0, 0, 0, 0), null
+        );
+        pIzquierda.add(pSvg);
     }
 
     private void crearJTextFields() {
-        tNombreUsuario = sObjGraficos.construirJTextField(
-                "Nombre Usuario", (pDerecha.getWidth() - 260) / 2, 130, 260, 40,
+        tCorreoUsuario = sObjGraficos.construirJTextField(
+                "Correo electronico", (pDerecha.getWidth() - 260) / 2, 130, 260, 40,
                 Color.WHITE, sRecursos.getColorNaranja(), sRecursos.getColorGrisOscuro(),
                 null, sRecursos.getBorderInferiorNaranja(), "c"
         );
-        pDerecha.add(tNombreUsuario);
+        tCorreoUsuario.addMouseListener(loginComponent);
+        pDerecha.add(tCorreoUsuario);
     }
 
     private void crearJPasswordFields() {
         tClaveUsuario = sObjGraficos.construirJPasswordField(
-                "clave Usuario", (pDerecha.getWidth() - 260) / 2, 260, 260, 40,
+                "Contraseña", (pDerecha.getWidth() - 260) / 2, 260, 260, 40,
                 null, sRecursos.getColorNaranja(), sRecursos.getColorGrisOscuro(), null, sRecursos.getBorderInferiorNaranja(), "c"
         );
+        tClaveUsuario.addMouseListener(loginComponent);
         pDerecha.add(tClaveUsuario);
     }
 
@@ -115,7 +131,7 @@ public class LoginTemplate extends JFrame {
                 250, 45, sRecursos.getCMano(), null, null, sRecursos.getColorNaranja(),
                 Color.WHITE, null, "c", true
         );
-        bEntrar.addActionListener(loginComponent);
+        bEntrar.addMouseListener(loginComponent);
         pDerecha.add(bEntrar);
 
         //BOTÓN REGISTRARSE-----------------------------------------------------------------------
@@ -123,7 +139,7 @@ public class LoginTemplate extends JFrame {
                 "Registrarse", 230, 410, 145, 35, sRecursos.getCMano(), null,
                 null, sRecursos.getColorNaranja(), Color.WHITE, null, "c", true
         );
-        bRegistrarse.addActionListener(loginComponent);
+        bRegistrarse.addMouseListener(loginComponent);
         pDerecha.add(bRegistrarse);
 
         //BOTÓN OPCIÓN 1-----------------------------------------------------------------------------
@@ -131,7 +147,7 @@ public class LoginTemplate extends JFrame {
                 "Acerca de Power Point", 230, 410, 145, 35, sRecursos.getCMano(), null,
                 null, Color.WHITE, sRecursos.getColorNaranja(), null, "c", true
         );
-        bOpcion1.addActionListener(loginComponent);
+        bOpcion1.addMouseListener(loginComponent);
         pIzquierda.add(bOpcion1);
 
         //BOTÓN OPCIÓN 2-----------------------------------------------------------------------------
@@ -140,6 +156,42 @@ public class LoginTemplate extends JFrame {
                 null, null, null, "c", false
         );
         pIzquierda.add(bOpcion2);
+
+        iDimAux = new ImageIcon(
+                btn1.getImage().getScaledInstance(20, 20, Image.SCALE_AREA_AVERAGING)
+        );
+
+//BOTÓN OPCIÓN 1-----------------------------------------------------------------------------
+        bop1 = sObjGraficos.construirJButton(
+                null, 10, 170, 30, 20, sRecursos.getCMano(), iDimAux, null,
+                null, null, null, "c", false
+        );
+        bop1.addActionListener(loginComponent);
+        pIzquierda.add(bop1);
+
+        iDimAux = new ImageIcon(
+                btn2.getImage().getScaledInstance(20, 20, Image.SCALE_AREA_AVERAGING)
+        );
+
+//BOTÓN OPCIÓN 2-----------------------------------------------------------------------------
+        bop2 = sObjGraficos.construirJButton(
+                null, 10, 220, 30, 20, sRecursos.getCMano(), iDimAux, null,
+                null, null, null, "c", false
+        );
+        bop2.addActionListener(loginComponent);
+        pIzquierda.add(bop2);
+
+        iDimAux = new ImageIcon(
+                btn3.getImage().getScaledInstance(20, 20, Image.SCALE_AREA_AVERAGING)
+        );
+//BOTÓN OPCIÓN 3-----------------------------------------------------------------------------
+        bop3 = sObjGraficos.construirJButton(
+                null, 10, 270, 30, 20, sRecursos.getCMano(), iDimAux, null,
+                null, null, null, "c", false
+        );
+        bop3.addActionListener(loginComponent);
+        pIzquierda.add(bop3);
+
     }
 
     private void crearJCheckBoxes() {
@@ -163,12 +215,12 @@ public class LoginTemplate extends JFrame {
         iDimAux = new ImageIcon(
                 iLogo.getImage().getScaledInstance(40, 40, Image.SCALE_AREA_AVERAGING)
         );
-        lLogo = sObjGraficos.construirJLabel(null, 50, 20, 40, 40, iDimAux, null, null, null, "c");
+        lLogo = sObjGraficos.construirJLabel(null, 50, 30, 40, 40, iDimAux, null, null, null, "c");
         pIzquierda.add(lLogo);
 
         //LABEL TITULO APP-----------------------------------------------------------------------------
         lTituloApp = sObjGraficos.construirJLabel(
-                "Login de Usuario", 100, 20, 220, 30, null, Color.WHITE, null, sRecursos.getFontTPrincipal(), "c"
+                "Login de Usuario", 100, 20, 350, 58, null, Color.WHITE, null, sRecursos.getFontTPrincipal(), "c"
         );
         pIzquierda.add(lTituloApp);
 
@@ -207,8 +259,27 @@ public class LoginTemplate extends JFrame {
         lFondo = sObjGraficos.construirJLabel(null, 0, 0, 600, 600, iDimAux, null, null, null, "c");
         pIzquierda.add(lFondo);
 
-    }
+        //LABEL SVG-----------------------------------------------------------------------------
+        iDimAux = new ImageIcon(
+                iSvg.getImage().getScaledInstance(500, 400, Image.SCALE_AREA_AVERAGING)
+        );
+        lSvg = sObjGraficos.construirJLabel(null, 0, 0, 500, 400, iDimAux, null, null, null, "c");
+        pSvg.add(lSvg);
 
+        //LABEL SVG1-----------------------------------------------------------------------------
+        iDimAux = new ImageIcon(
+                iSvg1.getImage().getScaledInstance(500, 400, Image.SCALE_AREA_AVERAGING)
+        );
+        lSvg1 = sObjGraficos.construirJLabel(null, 600, 0, 500, 400, iDimAux, null, null, null, "c");
+        pSvg.add(lSvg1);
+
+        //LABEL SVG2-----------------------------------------------------------------------------
+        iDimAux = new ImageIcon(
+                iSvg2.getImage().getScaledInstance(500, 400, Image.SCALE_AREA_AVERAGING)
+        );
+        lSvg2 = sObjGraficos.construirJLabel(null, 1200, 0, 500, 400, iDimAux, null, null, null, "c");
+        pSvg.add(lSvg2);
+    }
 
     public JButton getBCerrar() {
         return this.bCerrar;
@@ -226,8 +297,12 @@ public class LoginTemplate extends JFrame {
         return this.bOpcion1;
     }
 
-    public JTextField getTNombreUsuario() {
-        return this.tNombreUsuario;
+    public RecursosService getRecursosService() {
+        return sRecursos;
+    }
+
+    public JTextField getTCorreoUsuario() {
+        return this.tCorreoUsuario;
     }
 
     public JPasswordField getTClaveUsuario() {
@@ -245,4 +320,22 @@ public class LoginTemplate extends JFrame {
     public JCheckBox getCheckNo() {
         return this.checkNo;
     }
+
+    public JPanel getPSvg() {
+        return this.pSvg;
+    }
+
+    public JButton getBOpcion(int boton) {
+        if (boton == 1) {
+            return this.bop1;
+        }
+        if (boton == 2) {
+            return this.bop2;
+        }
+        if (boton == 3) {
+            return this.bop3;
+        }
+        return null;
+    }
+
 }

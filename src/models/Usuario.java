@@ -15,6 +15,7 @@ public class Usuario {
 
     private String nombreUsuario;
     private String claveUsuario;
+    private String correo;
     private ImageIcon imagenUsuario;
 
     public String getNombreUsuario() {
@@ -23,6 +24,10 @@ public class Usuario {
 
     public String getClaveUsuario() {
         return claveUsuario;
+    }
+
+    public String getCorreoUsuario() {
+        return correo;
     }
 
     public ImageIcon getImagenUsuario() {
@@ -35,6 +40,10 @@ public class Usuario {
 
     public void setClaveUsuario(String claveUsuario) {
         this.claveUsuario = claveUsuario;
+    }
+
+    public void setCorreoUsuario(String correo) {
+        this.correo = correo;
     }
 
     public void setImagenUsuario(ImageIcon imagenUsuario) {
